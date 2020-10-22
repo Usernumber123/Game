@@ -32,7 +32,7 @@ public class Game {
 
     }
 
-    private void gameLogin() {
+    private void gamerLogin() {
         gamer.enterName();
         System.out.println("SOUT Gamer History? Y/N:");
         Scanner scan = new Scanner(System.in);
@@ -91,7 +91,7 @@ public class Game {
 
     }
     public void gameStart() {
-        gameLogin();
+        gamerLogin();
         generateRandomWord();
 
         String unhiddenWord = "";
