@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Game {
     private Gamer gamer = new Gamer();
+    private FileWork fileWork = new FileWork(gamer);
+    private Login login = new Login(gamer, fileWork);
     private String hiddenWord;
 
     private void generateRandomWord() {
@@ -32,66 +34,8 @@ public class Game {
 
     }
 
-    private void gamerLogin() {
-        gamer.enterName();
-        System.out.println("SOUT Gamer History? Y/N:");
-        Scanner scan = new Scanner(System.in);
-        String answer = scan.next().toUpperCase();
-        if (answer.equals("Y")) getGamerHistory();
-    }
-
-
-
-    private void setWinResult() {
-        try {
-            FileWriter writer = new FileWriter("history.txt", true);
-            BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write(gamer.getName() + "\n" + "hidden Word: " + gamer.getWord() + " " + "Tryes: " + gamer.getTryes() + "\n");
-            bufferWriter.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
-    private void setLoseResult() {
-        try {
-            FileWriter writer = new FileWriter("history.txt", true);
-            BufferedWriter bufferWriter = new BufferedWriter(writer);
-            bufferWriter.write(gamer.getName() + "\n" + "hidden Word: " + gamer.getWord() + " " + "Lose" + "\n");
-            bufferWriter.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-    private void getGamerHistory() {
-        try {
-            File file = new File("history.txt");
-            FileReader fr = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fr);
-            String line = "";
-            boolean check = true;
-            while (true) {
-
-                line = reader.readLine();
-                if (line == null) break;
-                if (line.equals(gamer.getName())) {
-                    line = reader.readLine();
-                    System.out.println(line);
-                    check = false;
-                }
-
-
-            }
-            if (check) System.out.println("This gamer have not history уet");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void gameStart() {
-        gamerLogin();
+        login.loginGamer();
         generateRandomWord();
 
         String unhiddenWord = "";
@@ -116,7 +60,7 @@ public class Game {
                     if (unhiddenWord.equals(hiddenWord)) {
                         System.out.println("Congratulation!");
                         System.out.println("You got in " + gamer.getTryes() + " " + " trials" + "\n");
-                        setWinResult();
+                        fileWork.setWinResult();
                         break;
                     }
                 }
@@ -126,11 +70,11 @@ public class Game {
                 if (hiddenWord.equals(wordOrLetter)) {
                     System.out.println("Congratulation!");
                     System.out.println("You got in " + gamer.getTryes() + " trials");
-                    setWinResult();
+                    fileWork.setWinResult();
                 } else {
                     System.out.println("Word was :" + hiddenWord);
                     System.out.println("You lose!");
-                    setLoseResult();
+                    fileWork.setLoseResult();
                 }
                 break;
             }

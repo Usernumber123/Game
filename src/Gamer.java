@@ -6,11 +6,11 @@ public class Gamer {
     private int tryes;
     private String word;
 
-    public void enterName() {
-        Scanner sc1 = new Scanner(System.in);
-        System.out.println("Your Name:");
-        this.name = sc1.next();
+    public void setName(String name) {
+        this.name = name;
     }
+
+
 
     public String getWord() {
         return word;
