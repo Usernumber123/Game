@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.Scanner;
-
 public class Gamer {
     private String name;
     private int tryes;
@@ -9,7 +6,6 @@ public class Gamer {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public String getWord() {
